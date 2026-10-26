@@ -19,3 +19,23 @@ to that GitHub Release. Each AppImage checks for updates at startup and every
 six hours, downloads them automatically, and installs them when the app closes.
 The update is active the next time the app starts. This automatic update path is
 supported for the AppImage distribution.
+
+## Changelog
+
+### v1.0.2
+
+- Removed Electron's default File, Edit, View, and Window menu from the Ubuntu window.
+- Added this changelog and release-note policy.
+
+### v1.0.1
+
+- Published the first installable Linux AppImage.
+- Added system, hardware, storage, and network information views.
+- Added GitHub Release update checks and automatic AppImage updates.
+
+## Release notes policy
+
+For every app update, add a versioned changelog entry here that lists the user-
+visible changes. Commit and push the update to `main`, then push a matching
+`vX.Y.Z` tag. GitHub Actions builds the AppImage and updater metadata from that
+tag and attaches them to the GitHub Release.

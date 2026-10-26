@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, shell } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain, shell } = require('electron');
 const { autoUpdater } = require('electron-updater');
 const si = require('systeminformation');
 const path = require('node:path');
@@ -70,6 +70,7 @@ autoUpdater.on('update-downloaded', (info) => sendUpdateStatus({ status: 'downlo
 autoUpdater.on('error', (error) => sendUpdateStatus({ status: 'error', message: error.message }));
 
 app.whenReady().then(() => {
+  Menu.setApplicationMenu(null);
   createWindow();
   if (app.isPackaged) {
     mainWindow.webContents.once('did-finish-load', () => autoUpdater.checkForUpdates().catch((error) => {
