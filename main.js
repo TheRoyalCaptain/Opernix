@@ -54,23 +54,14 @@ ipcMain.handle('updates:check', async () => {
   }
 });
 
-ipcMain.handle('updates:download', async () => {
-  try {
-    await autoUpdater.downloadUpdate();
-    return { status: 'downloading' };
-  } catch (error) {
-    return { status: 'error', message: error.message };
-  }
-});
-
 ipcMain.handle('updates:install', () => autoUpdater.quitAndInstall());
 
 ipcMain.handle('app:open-external', async (_event, url) => {
   if (typeof url === 'string' && url.startsWith('https://')) await shell.openExternal(url);
 });
 
-autoUpdater.autoDownload = false;
-autoUpdater.autoInstallOnAppQuit = false;
+autoUpdater.autoDownload = true;
+autoUpdater.autoInstallOnAppQuit = true;
 autoUpdater.on('checking-for-update', () => sendUpdateStatus({ status: 'checking' }));
 autoUpdater.on('update-available', (info) => sendUpdateStatus({ status: 'available', version: info.version }));
 autoUpdater.on('update-not-available', () => sendUpdateStatus({ status: 'current' }));
@@ -80,6 +71,17 @@ autoUpdater.on('error', (error) => sendUpdateStatus({ status: 'error', message: 
 
 app.whenReady().then(() => {
   createWindow();
+  if (app.isPackaged) {
+    mainWindow.webContents.once('did-finish-load', () => autoUpdater.checkForUpdates().catch((error) => {
+      sendUpdateStatus({ status: 'error', message: error.message });
+    }));
+    const updateCheck = setInterval(() => {
+      autoUpdater.checkForUpdates().catch((error) => {
+        sendUpdateStatus({ status: 'error', message: error.message });
+      });
+    }, 6 * 60 * 60 * 1000);
+    updateCheck.unref();
+  }
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });

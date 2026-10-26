@@ -119,15 +119,14 @@ async function refreshSystemInfo() {
 function updateStatus(status) {
   const check = $('#check-update');
   $('#update-dot').hidden = !['available', 'downloaded'].includes(status.status);
-  check.disabled = ['checking', 'downloading'].includes(status.status);
-  $('#download-update').hidden = status.status !== 'available';
+  check.disabled = ['checking', 'available', 'downloading', 'downloaded'].includes(status.status);
   $('#install-update').hidden = status.status !== 'downloaded';
   const states = {
     checking: ['Updates controleren...', 'Even kijken of er een nieuwere versie beschikbaar is.'],
     current: ['Je bent helemaal bij.', 'Er is geen nieuwere versie beschikbaar.'],
     available: [`Versie ${status.version} is beschikbaar.`, 'Download de update wanneer je er klaar voor bent.'],
     downloading: ['Update downloaden...', `${Math.round(status.percent || 0)}% voltooid.`],
-    downloaded: ['Klaar om te installeren.', `Versie ${status.version} is gedownload. Herstart om bij te werken.`],
+    downloaded: ['Update klaar.', `Versie ${status.version} wordt geïnstalleerd wanneer je Opernix afsluit. Herstart om de update te gebruiken.`],
     'dev-mode': ['Updates beschikbaar in de geïnstalleerde app.', 'De GitHub-updatecontrole werkt zodra Opernix als AppImage is geïnstalleerd.'],
     error: ['Controleren is niet gelukt.', status.message || 'Controleer de GitHub-releaseconfiguratie en probeer opnieuw.']
   };
@@ -145,10 +144,6 @@ $('#check-update').addEventListener('click', async () => {
   updateStatus({ status: 'checking' });
   const result = await window.opernix.checkForUpdates();
   if (result.status === 'error' || result.status === 'dev-mode') updateStatus(result);
-});
-$('#download-update').addEventListener('click', async () => {
-  const result = await window.opernix.downloadUpdate();
-  if (result.status === 'error') updateStatus(result);
 });
 $('#install-update').addEventListener('click', () => window.opernix.installUpdate());
 $('#open-releases').addEventListener('click', () => window.opernix.openExternal(releaseUrl));
