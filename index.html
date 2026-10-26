@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'" />
+    <title>Opernix</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#overview" aria-label="Opernix start"><span class="brand-mark">O</span><span>opernix</span></a>
+        <div class="side-label">WERKPLEK</div>
+        <nav aria-label="Hoofdnavigatie">
+          <button class="nav-item active" data-view="overview"><img src="node_modules/lucide-static/icons/layout-dashboard.svg" alt="" /><span>Overzicht</span></button>
+          <button class="nav-item" data-view="hardware"><img src="node_modules/lucide-static/icons/cpu.svg" alt="" /><span>Hardware</span></button>
+          <button class="nav-item" data-view="storage"><img src="node_modules/lucide-static/icons/hard-drive.svg" alt="" /><span>Opslag &amp; netwerk</span></button>
+          <button class="nav-item" data-view="updates"><img src="node_modules/lucide-static/icons/refresh-cw.svg" alt="" /><span>Updates</span><span class="nav-dot" id="update-dot" hidden></span></button>
+        </nav>
+        <div class="sidebar-footer"><div class="live-indicator"><span></span>SYSTEEM ACTIEF</div><div class="app-version">Opernix <span id="app-version">v1.0.0</span></div></div>
+      </aside>
+
+      <main class="main-area">
+        <header class="topbar">
+          <div class="breadcrumb"><span>Werkplek</span><span class="crumb-slash">/</span><strong id="page-title">Overzicht</strong></div>
+          <div class="topbar-actions"><div class="last-updated"><span class="pulse"></span><span id="last-updated">Info laden...</span></div><button class="icon-button" id="refresh-button" title="Systeeminformatie vernieuwen" aria-label="Systeeminformatie vernieuwen"><img src="node_modules/lucide-static/icons/rotate-cw.svg" alt="" /></button></div>
+        </header>
+
+        <section class="view active" id="view-overview">
+          <div class="page-heading"><div><div class="eyebrow">SYSTEEMSTATUS <span class="eyebrow-line"></span></div><h1 id="hostname-title">Jouw pc, in beeld.</h1><p id="os-subtitle" class="muted">Systeemgegevens worden opgehaald...</p></div><div class="os-badge"><span class="ubuntu-mark">u</span><span id="os-badge-text">LINUX</span></div></div>
+          <div class="metric-grid">
+            <article class="metric-card metric-cpu"><div class="metric-top"><span class="metric-label">PROCESSOR</span><img src="node_modules/lucide-static/icons/cpu.svg" alt="" /></div><div class="metric-value" id="cpu-load">--<small>%</small></div><div class="metric-caption" id="cpu-name">CPU-belasting</div><div class="meter"><span id="cpu-meter"></span></div><div class="metric-foot" id="cpu-cores">-- cores</div></article>
+            <article class="metric-card metric-memory"><div class="metric-top"><span class="metric-label">GEHEUGEN</span><img src="node_modules/lucide-static/icons/memory-stick.svg" alt="" /></div><div class="metric-value" id="memory-used">--</div><div class="metric-caption" id="memory-total">in gebruik</div><div class="meter"><span id="memory-meter"></span></div><div class="metric-foot" id="memory-free">-- beschikbaar</div></article>
+            <article class="metric-card metric-storage"><div class="metric-top"><span class="metric-label">OPSLAG</span><img src="node_modules/lucide-static/icons/database.svg" alt="" /></div><div class="metric-value" id="storage-used">--</div><div class="metric-caption" id="storage-total">in gebruik</div><div class="meter"><span id="storage-meter"></span></div><div class="metric-foot" id="storage-free">-- vrij</div></article>
+            <article class="metric-card metric-uptime"><div class="metric-top"><span class="metric-label">UPTIME</span><img src="node_modules/lucide-static/icons/clock-3.svg" alt="" /></div><div class="metric-value" id="uptime-value">--</div><div class="metric-caption">sinds de laatste start</div><div class="uptime-rule"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="metric-foot" id="boot-time">Starttijd ophalen...</div></article>
+          </div>
+          <div class="section-heading"><div><span class="section-index">01</span><h2>Jouw systeem</h2></div><span class="section-note">HARDWARE &amp; SOFTWARE</span></div>
+          <div class="system-grid">
+            <article class="info-panel system-panel"><div class="panel-heading"><div><span class="panel-kicker">APPARAAT</span><h3>Specificaties</h3></div><span class="panel-icon"><img src="node_modules/lucide-static/icons/monitor.svg" alt="" /></span></div><dl class="detail-list"><div><dt>Processor</dt><dd id="detail-cpu">Ophalen...</dd></div><div><dt>Grafische kaart</dt><dd id="detail-gpu">Ophalen...</dd></div><div><dt>Moederbord</dt><dd id="detail-board">Ophalen...</dd></div><div><dt>Architectuur</dt><dd id="detail-arch">Ophalen...</dd></div></dl></article>
+            <article class="info-panel update-panel"><div class="panel-heading"><div><span class="panel-kicker">SOFTWARE</span><h3>Versies &amp; updates</h3></div><span class="panel-icon green"><img src="node_modules/lucide-static/icons/sparkles.svg" alt="" /></span></div><dl class="detail-list"><div><dt>Distributie</dt><dd id="detail-distro">Ophalen...</dd></div><div><dt>Kernel</dt><dd id="detail-kernel">Ophalen...</dd></div><div><dt>Opernix</dt><dd id="detail-version">v1.0.0</dd></div></dl><button class="text-button" data-open-view="updates">Naar updates <span>→</span></button></article>
+          </div>
+          <div class="footer-note"><span class="footer-square"></span>Gegevens worden lokaal op dit apparaat verwerkt.</div>
+        </section>
+
+        <section class="view" id="view-hardware">
+          <div class="page-heading compact-heading"><div><div class="eyebrow">APPARAAT <span class="eyebrow-line"></span></div><h1>Hardware</h1><p class="muted">De onderdelen waaruit jouw systeem bestaat.</p></div></div>
+          <div class="hardware-layout">
+            <article class="info-panel wide-panel"><div class="panel-heading"><div><span class="panel-kicker">VERWERKING</span><h3>Processor &amp; grafische kaart</h3></div><span class="panel-icon"><img src="node_modules/lucide-static/icons/cpu.svg" alt="" /></span></div><dl class="detail-list"><div><dt>Processor</dt><dd id="hardware-cpu">Ophalen...</dd></div><div><dt>Fabrikant</dt><dd id="hardware-cpu-maker">Ophalen...</dd></div><div><dt>Logische cores</dt><dd id="hardware-cores">Ophalen...</dd></div><div><dt>Grafische kaarten</dt><dd id="hardware-gpus">Ophalen...</dd></div></dl></article>
+            <article class="info-panel wide-panel"><div class="panel-heading"><div><span class="panel-kicker">GEHEUGEN</span><h3>RAM &amp; systeem</h3></div><span class="panel-icon green"><img src="node_modules/lucide-static/icons/memory-stick.svg" alt="" /></span></div><dl class="detail-list"><div><dt>Geïnstalleerd RAM</dt><dd id="hardware-memory">Ophalen...</dd></div><div><dt>Fabrikant moederbord</dt><dd id="hardware-board-maker">Ophalen...</dd></div><div><dt>Moederbord</dt><dd id="hardware-board">Ophalen...</dd></div><div><dt>BIOS</dt><dd id="hardware-bios">Ophalen...</dd></div></dl></article>
+            <article class="info-panel wide-panel"><div class="panel-heading"><div><span class="panel-kicker">ENERGIE</span><h3>Batterij</h3></div><span class="panel-icon amber"><img src="node_modules/lucide-static/icons/battery-medium.svg" alt="" /></span></div><dl class="detail-list"><div><dt>Status</dt><dd id="hardware-battery">Ophalen...</dd></div><div><dt>Laadniveau</dt><dd id="hardware-battery-level">Ophalen...</dd></div><div><dt>Netvoeding</dt><dd id="hardware-battery-power">Ophalen...</dd></div><div><dt>Apparaatmodel</dt><dd id="hardware-model">Ophalen...</dd></div></dl></article>
+          </div>
+        </section>
+
+        <section class="view" id="view-storage">
+          <div class="page-heading compact-heading"><div><div class="eyebrow">VERBONDEN APPARATEN <span class="eyebrow-line"></span></div><h1>Opslag &amp; netwerk</h1><p class="muted">Beschikbare volumes en netwerkinterfaces.</p></div></div>
+          <div class="storage-layout">
+            <article class="info-panel wide-panel"><div class="panel-heading"><div><span class="panel-kicker">BESTANDSSYSTEMEN</span><h3>Volumes</h3></div><span class="panel-icon"><img src="node_modules/lucide-static/icons/hard-drive.svg" alt="" /></span></div><div class="table-wrap"><table><thead><tr><th>Volume</th><th>Type</th><th>Gebruikt</th><th>Vrij</th><th>Status</th></tr></thead><tbody id="volume-list"><tr><td colspan="5" class="empty-row">Volumes ophalen...</td></tr></tbody></table></div></article>
+            <article class="info-panel wide-panel"><div class="panel-heading"><div><span class="panel-kicker">FYSIEKE SCHIJVEN</span><h3>Schijven</h3></div><span class="panel-icon green"><img src="node_modules/lucide-static/icons/circle-gauge.svg" alt="" /></span></div><div class="table-wrap"><table><thead><tr><th>Model</th><th>Type</th><th>Capaciteit</th><th>Interface</th></tr></thead><tbody id="disk-list"><tr><td colspan="4" class="empty-row">Schijven ophalen...</td></tr></tbody></table></div></article>
+            <article class="info-panel wide-panel"><div class="panel-heading"><div><span class="panel-kicker">VERBINDINGEN</span><h3>Netwerkinterfaces</h3></div><span class="panel-icon amber"><img src="node_modules/lucide-static/icons/wifi.svg" alt="" /></span></div><div class="table-wrap"><table><thead><tr><th>Interface</th><th>Type</th><th>IPv4</th><th>MAC-adres</th><th>Status</th></tr></thead><tbody id="network-list"><tr><td colspan="5" class="empty-row">Interfaces ophalen...</td></tr></tbody></table></div></article>
+          </div>
+        </section>
+
+        <section class="view" id="view-updates">
+          <div class="page-heading compact-heading"><div><div class="eyebrow">ONDERHOUD <span class="eyebrow-line"></span></div><h1>Updates</h1><p class="muted">Opernix controleert op nieuwe versies via GitHub Releases.</p></div></div>
+          <div class="update-layout">
+            <article class="update-hero"><div class="update-orbit"><span></span><span></span><span></span><div class="update-core"><img src="node_modules/lucide-static/icons/arrow-down-to-line.svg" alt="" /></div></div><div class="update-copy"><span class="panel-kicker">OPERNIX DESKTOP</span><h2 id="update-heading">Je bent helemaal bij.</h2><p id="update-message">Controleer of er een nieuwe versie klaarstaat.</p><div class="update-actions" id="update-actions"><button class="primary-button" id="check-update"><img src="node_modules/lucide-static/icons/refresh-cw.svg" alt="" />Controleer op updates</button><button class="primary-button" id="download-update" hidden>Download update</button><button class="primary-button" id="install-update" hidden>Installeren en herstarten</button></div></div><div class="current-version">HUIDIGE VERSIE <strong id="current-version">v1.0.0</strong></div></article>
+            <article class="info-panel update-source"><div class="panel-heading"><div><span class="panel-kicker">UPDATEBRON</span><h3>GitHub Releases</h3></div><span class="panel-icon"><img src="node_modules/lucide-static/icons/github.svg" alt="" /></span></div><p class="source-copy">Updates worden als AppImage aangeboden vanuit de GitHub-repository die bij deze app is ingesteld. De update wordt pas geïnstalleerd nadat je dat bevestigt.</p><button class="text-button" id="open-releases">Bekijk releases <span>↗</span></button></article>
+          </div>
+        </section>
+        <div class="toast" id="toast" role="status" aria-live="polite"></div>
+      </main>
+    </div>
+    <script src="renderer.js"></script>
+  </body>
+</html>

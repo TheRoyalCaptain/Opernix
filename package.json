@@ -1,0 +1,38 @@
+{
+  "name": "opernix-control-center",
+  "version": "1.0.0",
+  "description": "A system control center for Ubuntu and Linux",
+  "main": "main.js",
+  "author": "Opernix",
+  "desktopName": "Opernix",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --linux AppImage",
+    "publish": "electron-builder --linux AppImage --publish always"
+  },
+  "dependencies": {
+    "electron-updater": "^6.6.2",
+    "lucide-static": "^0.468.0",
+    "systeminformation": "^5.27.7"
+  },
+  "devDependencies": {
+    "electron": "^45.0.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.opernix.controlcenter",
+    "productName": "Opernix",
+    "linux": {
+      "category": "System",
+      "syncDesktopName": true,
+      "target": ["AppImage"],
+      "maintainer": "Opernix"
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "TheRoyalCaptain",
+      "repo": "Opernix",
+      "releaseType": "release"
+    }
+  }
+}
