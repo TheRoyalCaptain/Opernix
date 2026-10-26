@@ -1,6 +1,6 @@
 {
   "name": "opernix-control-center",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A system control center for Ubuntu and Linux",
   "main": "main.js",
   "author": "Opernix",

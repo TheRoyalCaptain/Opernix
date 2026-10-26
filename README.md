@@ -13,7 +13,7 @@ npm start
 ## GitHub updates
 
 The GitHub owner and repository are configured in `package.json` under
-`build.publish`. Push a semantic version tag such as `v1.0.3`. GitHub Actions
+`build.publish`. Push a semantic version tag such as `v1.0.4`. GitHub Actions
 uses the tag as the app version and publishes an AppImage plus updater metadata
 to that GitHub Release. Each AppImage checks for updates at startup and every
 six hours, downloads them automatically, and installs them when the app closes.
@@ -22,11 +22,14 @@ supported for the AppImage distribution.
 
 ## Changelog
 
+### v1.0.4
+
+- Aligned the app's displayed version, package manifest, and lockfile with the GitHub release version.
+
 ### v1.0.3
 
 - Added automatic system-information refresh with a user-selectable interval from 1 to 300 seconds.
 - Saved the selected refresh interval locally so it is restored on next launch.
-- Aligned the source package version and initial version labels with the published v1.0.3 release.
 
 ### v1.0.2
 
