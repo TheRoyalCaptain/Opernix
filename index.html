@@ -24,7 +24,7 @@
       <main class="main-area">
         <header class="topbar">
           <div class="breadcrumb"><span>Werkplek</span><span class="crumb-slash">/</span><strong id="page-title">Overzicht</strong></div>
-          <div class="topbar-actions"><div class="last-updated"><span class="pulse"></span><span id="last-updated">Info laden...</span></div><button class="icon-button" id="refresh-button" title="Systeeminformatie vernieuwen" aria-label="Systeeminformatie vernieuwen"><img src="node_modules/lucide-static/icons/rotate-cw.svg" alt="" /></button></div>
+          <div class="topbar-actions"><label class="refresh-setting" for="refresh-interval">Info elke <input id="refresh-interval" type="number" min="1" max="300" step="1" value="5" aria-label="Verversinterval in seconden" /> sec.</label><div class="last-updated"><span class="pulse"></span><span id="last-updated">Info laden...</span></div><button class="icon-button" id="refresh-button" title="Systeeminformatie vernieuwen" aria-label="Systeeminformatie vernieuwen"><img src="node_modules/lucide-static/icons/rotate-cw.svg" alt="" /></button></div>
         </header>
 
         <section class="view active" id="view-overview">

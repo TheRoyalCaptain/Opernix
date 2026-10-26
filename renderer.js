@@ -5,6 +5,9 @@ const setText = (selector, value) => { $(selector).textContent = value; };
 const setMeter = (selector, value) => { $(selector).style.width = `${Math.max(0, Math.min(100, value || 0))}%`; };
 let releaseUrl = 'https://github.com/TheRoyalCaptain/Opernix/releases';
 let toastTimer;
+let refreshTimer;
+let refreshInFlight = false;
+const refreshIntervalKey = 'opernix.refreshIntervalSeconds';
 
 function showToast(message) {
   const toast = $('#toast');
@@ -58,6 +61,8 @@ function formatUptime(seconds) {
 }
 
 async function refreshSystemInfo() {
+  if (refreshInFlight) return;
+  refreshInFlight = true;
   $('#refresh-button').classList.add('is-loading');
   try {
     const data = await window.opernix.getSystemInfo();
@@ -112,8 +117,23 @@ async function refreshSystemInfo() {
     showToast(`Systeeminformatie ophalen mislukt: ${error.message}`);
     setText('#last-updated', 'Gegevens niet beschikbaar');
   } finally {
+    refreshInFlight = false;
     $('#refresh-button').classList.remove('is-loading');
   }
+}
+
+function setRefreshInterval(value, persist = true) {
+  const seconds = Math.max(1, Math.min(300, Math.round(Number(value) || 5)));
+  $('#refresh-interval').value = String(seconds);
+  if (persist) {
+    try {
+      localStorage.setItem(refreshIntervalKey, String(seconds));
+    } catch {
+      showToast('De verversfrequentie kan niet lokaal worden opgeslagen.');
+    }
+  }
+  clearInterval(refreshTimer);
+  refreshTimer = setInterval(refreshSystemInfo, seconds * 1000);
 }
 
 function updateStatus(status) {
@@ -140,6 +160,7 @@ function updateStatus(status) {
 document.querySelectorAll('.nav-item').forEach((item) => item.addEventListener('click', () => showView(item.dataset.view)));
 document.querySelectorAll('[data-open-view]').forEach((item) => item.addEventListener('click', () => showView(item.dataset.openView)));
 $('#refresh-button').addEventListener('click', refreshSystemInfo);
+$('#refresh-interval').addEventListener('change', (event) => setRefreshInterval(event.target.value));
 $('#check-update').addEventListener('click', async () => {
   updateStatus({ status: 'checking' });
   const result = await window.opernix.checkForUpdates();
@@ -152,4 +173,11 @@ window.opernix.getAppInfo().then((info) => {
   releaseUrl = info.releasesUrl;
   document.querySelectorAll('#app-version, #current-version, #detail-version').forEach((element) => { element.textContent = `v${info.version}`; });
 });
+let savedRefreshInterval = 5;
+try {
+  savedRefreshInterval = Number(localStorage.getItem(refreshIntervalKey)) || 5;
+} catch {
+  savedRefreshInterval = 5;
+}
+setRefreshInterval(savedRefreshInterval, false);
 refreshSystemInfo();
