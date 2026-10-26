@@ -26,6 +26,7 @@ supported for the AppImage distribution.
 
 - Added automatic system-information refresh with a user-selectable interval from 1 to 300 seconds.
 - Saved the selected refresh interval locally so it is restored on next launch.
+- Aligned the source package version and initial version labels with the published v1.0.3 release.
 
 ### v1.0.2
 
